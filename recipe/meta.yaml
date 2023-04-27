@@ -26,14 +26,16 @@ requirements:
 
 test:
   requires:
+    - pip
     - pytest
     - simplejson
     - pytz
     - python-dateutil
   imports:
     - marshmallow
-  source_files: tests/*
+  source_files: tests/*.py
   commands:
+    - pip check
     - python -m pytest tests
 
 about:
