@@ -20,7 +20,6 @@ requirements:
     - pip
     - setuptools
     - wheel
-    - packaging
   run:
     - python
     - packaging >=17.0
