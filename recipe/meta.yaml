@@ -30,7 +30,6 @@ test:
     - pytest
     - simplejson
     - pytz
-    - python-dateutil
   imports:
     - marshmallow
   source_files: tests/*.py
