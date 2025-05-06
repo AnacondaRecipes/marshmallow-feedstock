@@ -1,0 +1,2 @@
+channels:
+  - https://staging.continuum.io/prefect/fs/backports-datetime-fromisoformat-feedstock/pr2/ff6c923
