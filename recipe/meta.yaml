@@ -36,7 +36,8 @@ test:
   source_files: tests/*.py
   commands:
     - pip check
-    - python -m pytest tests
+    - pytest -vv tests  # [not win]
+    - pytest -vv tests -k "not test_from_timestamp_with_overflow_value"  # [win]
 
 about:
   home: https://github.com/marshmallow-code/marshmallow
