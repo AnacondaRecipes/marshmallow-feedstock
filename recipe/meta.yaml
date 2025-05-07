@@ -19,7 +19,7 @@ requirements:
     - python
     - pip
     - wheel
-    - flit-core
+    - flit-core <4
   run:
     - python
     - typing-extensions  # [py<311]
@@ -38,6 +38,17 @@ test:
     - pip check
     - pytest -vv tests  # [not win]
     - pytest -vv tests -k "not test_from_timestamp_with_overflow_value"  # [win]
+  # downstream:
+  #   - marshmallow-enum
+  #   - marshmallow-sqlalchemy
+  #   - dataclasses-json
+  #   - marshmallow-oneofschema
+  #   - great-expectations
+  #   - webargs
+  #   - flask-appbuilder
+  #   - unstructured-client
+  #   - azure-ai-ml
+  #   - environs
 
 about:
   home: https://github.com/marshmallow-code/marshmallow
