@@ -1,18 +1,18 @@
 {% set name = "marshmallow" %}
-{% set version = "4.0.0" %}
+{% set version = "4.0.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 3b6e80aac299a7935cfb97ed01d1854fb90b5079430969af92118ea1b12a8d55
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: e1d860bd262737cb2d34e1541b84cb52c32c72c9474e3fe6f30f137ef8b0d97f
 
 build:
-  skip: true  # [py<39]
   number: 0
   script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation . -vv
+  skip: true  # [py<39]
 
 requirements:
   host:
@@ -21,33 +21,42 @@ requirements:
     - flit-core <4
   run:
     - python
-    - typing-extensions  # [py<311]
     - backports-datetime-fromisoformat  # [py<311]
+    - typing-extensions  # [py<311]    
 
 test:
+  imports:
+    - marshmallow
+    - marshmallow.constants
+    - marshmallow.decorators
+    - marshmallow.error_store
+    - marshmallow.exceptions
+    - marshmallow.orderedset
+    - marshmallow.schema
+    - marshmallow.utils
+    - marshmallow.validate
+  source_files: 
+    - tests/*.py
+  commands:
+    - pip check
+    - pytest -vv tests  # [not win]
+    - pytest -vv tests -k "not test_from_timestamp_with_overflow_value"  # [win]
   requires:
     - pip
     - pytest
     - simplejson
     - pytz
-  imports:
-    - marshmallow
-  source_files: tests/*.py
-  commands:
-    - pip check
-    - pytest -vv tests  # [not win]
-    - pytest -vv tests -k "not test_from_timestamp_with_overflow_value"  # [win]
-  # downstream:
-  #   - marshmallow-enum
-  #   - marshmallow-sqlalchemy
-  #   - dataclasses-json
-  #   - marshmallow-oneofschema
-  #   - great-expectations
-  #   - webargs
-  #   - flask-appbuilder
-  #   - unstructured-client
-  #   - azure-ai-ml
-  #   - environs
+  #downstream:
+  #  - marshmallow-enum
+  #  - marshmallow-sqlalchemy
+  #  - dataclasses-json
+  #  - marshmallow-oneofschema
+  #  - great-expectations
+  #  - webargs
+  #  - flask-appbuilder
+  #  - unstructured-client
+  #  - azure-ai-ml
+  #  - environs
 
 about:
   home: https://github.com/marshmallow-code/marshmallow
