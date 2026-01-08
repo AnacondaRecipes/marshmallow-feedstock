@@ -22,7 +22,6 @@ requirements:
   run:
     - python
     - backports-datetime-fromisoformat  # [py<311]
-    - typing-extensions  # [py<311]
     - typing_extensions  # [py<311]
 
 test:
@@ -40,7 +39,7 @@ test:
     - tests/*.py
   commands:
     - pip check
-    - pytest -vv tests -k "not test_from_timestamp_with_overflow_value"
+    - pytest -v tests
   requires:
     - pip
     - pytest
