@@ -1,5 +1,5 @@
 {% set name = "marshmallow" %}
-{% set version = "4.0.1" %}
+{% set version = "4.2.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: e1d860bd262737cb2d34e1541b84cb52c32c72c9474e3fe6f30f137ef8b0d97f
+  sha256: 908acabd5aa14741419d3678d3296bda6abe28a167b7dcd05969ceb8256943ac
 
 build:
-  number: 1
+  number: 0
   script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation . -vv
-  skip: true  # [py<39]
+  skip: true  # [py<310]
 
 requirements:
   host:
@@ -22,7 +22,7 @@ requirements:
   run:
     - python
     - backports-datetime-fromisoformat  # [py<311]
-    - typing-extensions  # [py<311]
+    - typing_extensions  # [py<311]
 
 test:
   imports:
@@ -36,10 +36,13 @@ test:
     - marshmallow.utils
     - marshmallow.validate
   source_files:
-    - tests/*.py
+    - tests
   commands:
     - pip check
-    - pytest -vv tests -k "not test_from_timestamp_with_overflow_value"
+    # Test issue - on Windows, large stamps are handled differently than in Unix.
+    # Ignore mypy_test_cases directory as those are type-checking tests, not pytest tests
+    - pytest -v tests --ignore=tests/mypy_test_cases # [not win]
+    - pytest -v tests -k "not test_from_timestamp_with_overflow_value" --ignore=tests/mypy_test_cases # [win]
   requires:
     - pip
     - pytest
