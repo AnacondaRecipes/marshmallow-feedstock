@@ -36,7 +36,7 @@ test:
     - marshmallow.utils
     - marshmallow.validate
   source_files:
-    - tests/*.py
+    - tests
   commands:
     - pip check
     # Test issue - on Windows, large stamps are handled differently than in Unix.
