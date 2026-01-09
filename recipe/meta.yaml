@@ -40,8 +40,9 @@ test:
   commands:
     - pip check
     # Test issue - on Windows, large stamps are handled differently than in Unix.
-    - pytest -v tests # [not win]
-    - pytest -v tests -k "not test_from_timestamp_with_overflow_value" # [win]
+    # Ignore mypy_test_cases directory as those are type-checking tests, not pytest tests
+    - pytest -v tests --ignore=tests/mypy_test_cases # [not win]
+    - pytest -v tests -k "not test_from_timestamp_with_overflow_value" --ignore=tests/mypy_test_cases # [win]
   requires:
     - pip
     - pytest
