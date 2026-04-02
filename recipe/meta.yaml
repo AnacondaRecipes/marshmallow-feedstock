@@ -1,5 +1,5 @@
 {% set name = "marshmallow" %}
-{% set version = "4.2.0" %}
+{% set version = "4.2.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 908acabd5aa14741419d3678d3296bda6abe28a167b7dcd05969ceb8256943ac
+  sha256: 3e3fef6b3603721a25a723b8caedfa488369bddaf9bc03b40b9442c90aebd22b
 
 build:
   number: 0
@@ -18,7 +18,7 @@ requirements:
   host:
     - python
     - pip
-    - flit-core <4
+    - flit-core >=3.12,<4
   run:
     - python
     - backports-datetime-fromisoformat  # [py<311]
@@ -41,8 +41,8 @@ test:
     - pip check
     # Test issue - on Windows, large stamps are handled differently than in Unix.
     # Ignore mypy_test_cases directory as those are type-checking tests, not pytest tests
-    - pytest -v tests --ignore=tests/mypy_test_cases # [not win]
-    - pytest -v tests -k "not test_from_timestamp_with_overflow_value" --ignore=tests/mypy_test_cases # [win]
+    - pytest -v tests --ignore=tests/mypy_test_cases  # [not win]
+    - pytest -v tests -k "not test_from_timestamp_with_overflow_value" --ignore=tests/mypy_test_cases  # [win]
   requires:
     - pip
     - pytest
