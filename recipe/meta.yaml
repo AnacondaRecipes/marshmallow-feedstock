@@ -35,7 +35,7 @@ test:
   commands:
     - pip check
     #E AssertionError: Regex pattern did not match.
-    - pytest tests/ -k "not test_from_timestamp_with_overflow_value"  # [py>=314]
+    - pytest tests/ -k "not test_from_timestamp_with_overflow_value"  # [py>=314 or win]
     - pytest tests/  # [py<314]
 
 about:
