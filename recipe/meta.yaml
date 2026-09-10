@@ -48,17 +48,17 @@ test:
     - pytest
     - simplejson
     - pytz
-  #downstream:
-  #  - marshmallow-enum
-  #  - marshmallow-sqlalchemy
-  #  - dataclasses-json
-  #  - marshmallow-oneofschema
-  #  - great-expectations
-  #  - webargs
-  #  - flask-appbuilder
-  #  - unstructured-client
-  #  - azure-ai-ml
-  #  - environs
+  downstream:
+   - marshmallow-enum
+   - marshmallow-sqlalchemy
+   - dataclasses-json
+   - marshmallow-oneofschema
+   - great-expectations
+   - webargs
+   - flask-appbuilder
+   - unstructured-client
+   - azure-ai-ml
+   - environs
 
 about:
   home: https://github.com/marshmallow-code/marshmallow
