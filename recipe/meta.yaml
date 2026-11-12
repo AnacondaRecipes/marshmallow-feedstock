@@ -1,5 +1,5 @@
 {% set name = "marshmallow" %}
-{% set version = "4.3.1" %}
+{% set version = "4.4.0" %}
 
 package:
   name: {{ name }}
@@ -7,22 +7,20 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: fb6b8048af08d4ab061610d5b7d3696a7e4c95337dbda880edb9f95812cabc20
+  sha256: 9e6ffa8511012ca89732324c1c253efd7b4d35632dcbdf80aa793fe01804af3e
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install --no-deps --no-build-isolation . -vv
-  skip: true  # [py<310]
+  skip: true  # [py<311]
 
 requirements:
   host:
     - python
     - pip
-    - flit-core >=3.12,<4
+    - flit-core >=4,<5
   run:
     - python
-    - backports-datetime-fromisoformat  # [py<311]
-    - typing_extensions  # [py<311]
 
 test:
   imports:
@@ -41,13 +39,12 @@ test:
     - pip check
     # Test issue - on Windows, large stamps are handled differently than in Unix.
     # Ignore mypy_test_cases directory as those are type-checking tests, not pytest tests
-    - pytest -v tests --ignore=tests/mypy_test_cases  # [not win]
-    - pytest -v tests -k "not test_from_timestamp_with_overflow_value" --ignore=tests/mypy_test_cases  # [win]
+    - pytest -vv tests --ignore=tests/mypy_test_cases  # [not win]
+    - pytest -vv tests -k "not test_from_timestamp_with_overflow_value" --ignore=tests/mypy_test_cases  # [win]
   requires:
     - pip
     - pytest
     - simplejson
-    - pytz
   # downstream:
   #  - marshmallow-enum
   #  - marshmallow-sqlalchemy
